@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Gras_script : MonoBehaviour
-{public static Transform grastrans;
+{
+    public static Transform grastrans;
     // Start is called before the first frame update
     void Start()
     {

@@ -566,6 +566,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3986b92c46320e85d85e240a95f2877e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xMargin: 1
+  yMargin: 1
+  xSmooth: 2
+  ySmooth: 2
+  maxXAndY: {x: 20, y: 2}
+  minXAndY: {x: 0, y: 0}
+  cameraTarget: {fileID: 898450102}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
