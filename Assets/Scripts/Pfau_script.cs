@@ -9,7 +9,12 @@ public class Pfau_script : MonoBehaviour
     public static Animator pfauanim;
     public static Transform pfautrans;
     public static SpriteRenderer pfausprite;
-    public static Sprite[] sprite;
+    public static BoxCollider2D pfaucoll;
+    public Sprite standSprite;
+    public Sprite flySprite;
+    public Sprite duckSprite;
+    public int speed = 2;
+    public int yeet = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,27 +22,50 @@ public class Pfau_script : MonoBehaviour
         pfauanim = GetComponent<Animator>();
         pfautrans = GetComponent<Transform>();
         pfausprite = GetComponent<SpriteRenderer>();
-	sprite = Resources.LoadAll<Sprite>("../Textures/pfau_vorn");
+        pfaucoll = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-	if (Input.GetKey("right"))
+	List<ContactPoint2D> contacts = new List<ContactPoint2D>();
+	int c = pfaucoll.GetContacts(contacts);
+	if(c == 0)
 	{
-		pfaur2d.velocity = new Vector2(2,0);
-		pfauanim.enabled = true;
-	}
-	else if (Input.GetKey("left"))
-	{
-		pfaur2d.velocity = new Vector2(-2,0);
-		pfauanim.enabled = true;
+		pfausprite.sprite = flySprite;
+		pfauanim.enabled = false;
 	}
 	else
 	{
-		pfaur2d.velocity = new Vector2(0,0);
+		pfausprite.sprite = standSprite;
+	}
+	if (Input.GetKey("right"))
+	{
+		pfaur2d.velocity = new Vector2(speed,pfaur2d.velocity.y);
+		if(c!=0)pfauanim.enabled = true;
+		pfautrans.localScale = new Vector3(-0.3f, 0.3f, 1);
+	}
+	else if (Input.GetKey("left"))
+	{
+		pfaur2d.velocity = new Vector2(-speed,pfaur2d.velocity.y);
+		if(c!=0)pfauanim.enabled = true;
+		pfautrans.localScale = new Vector3(0.3f, 0.3f, 1);
+	}
+	else
+	{
+		pfaur2d.velocity = new Vector2(0,pfaur2d.velocity.y);
 		pfauanim.enabled = false;
-		pfausprite.sprite = sprite[0];
+	}
+	if(Input.GetKey("down"))
+	{
+		pfaur2d.AddForce(new Vector2(0, -yeet/2), ForceMode2D.Impulse);
+		pfauanim.enabled = false;
+		pfausprite.sprite = duckSprite;
+	}
+	if (Input.GetKey("up") && c != 0 && (int)pfaur2d.velocity.y == 0)
+	{
+		pfaur2d.AddForce(new Vector2(0, yeet), ForceMode2D.Impulse);
+
 	}
     }
 }
