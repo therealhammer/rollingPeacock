@@ -18,7 +18,7 @@ public class Cam_script : MonoBehaviour
      // Use this for initialization
      void Start() 
      {
-         cameraTarget = GameObject.FindGameObjectWithTag("CameraTarget").transform;
+         
      }
  
      bool CheckXMargin()
