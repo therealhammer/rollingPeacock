@@ -10,7 +10,9 @@ public class Pfau_script : MonoBehaviour
     public static Transform pfautrans;
     public static SpriteRenderer pfausprite;
     public static BoxCollider2D pfaucoll;
+    //public static AudioSource pfauas;
     public GameObject ground;
+    public GameObject kaki;
     public Sprite standSprite;
     public Sprite flySprite;
     public Sprite duckSprite;
@@ -24,10 +26,12 @@ public class Pfau_script : MonoBehaviour
         pfautrans = GetComponent<Transform>();
         pfausprite = GetComponent<SpriteRenderer>();
         pfaucoll = GetComponent<BoxCollider2D>();
+        //pfauas = GetComponent<AudioSource>();
         pfaur2d.freezeRotation = true;
         for(int i = -4; i < 20; i++)
         {
             Instantiate(ground, new Vector3(i * 3, -4, 0), Quaternion.identity);
+            Instantiate(kaki, new Vector3(Random.Range(-4f, 20f), -2.5f, 0), Quaternion.identity);
         }
     }
 
